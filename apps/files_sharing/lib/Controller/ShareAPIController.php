@@ -56,6 +56,7 @@ use OCP\Files\NotFoundException;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IL10N;
+use OCP\IPreview;
 use OCP\IRequest;
 use OCP\IServerContainer;
 use OCP\IURLGenerator;
@@ -201,6 +202,7 @@ class ShareAPIController extends OCSController {
 		}
 
 		$result['mimetype'] = $node->getMimetype();
+		$result['has_preview'] = $this->previewManager->isAvailable($node);
 		$result['storage_id'] = $node->getStorage()->getId();
 		$result['storage'] = $node->getStorage()->getCache()->getNumericStorageId();
 		$result['item_source'] = $node->getId();
