@@ -43,6 +43,7 @@ use OCP\AppFramework\OCS\OCSForbiddenException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\IPreview;
 use OCP\IRequest;
 use OCP\IServerContainer;
 use OCP\Share\IShare;
