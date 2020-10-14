@@ -90,6 +90,9 @@ abstract class Fetcher {
 	 */
 	protected function fetch($ETag, $content) {
 		$appstoreenabled = $this->config->getSystemValue('appstoreenabled', true);
+		if ((int)$this->config->getAppValue('settings', 'appstore-fetcher-lastFailure', '0') > time() - self::RETRY_AFTER_FAILURE_SECONDS) {
+			return [];
+		}
 
 		if (!$appstoreenabled) {
 			return [];
@@ -105,7 +108,12 @@ abstract class Fetcher {
 		}
 
 		$client = $this->clientService->newClient();
-		$response = $client->get($this->getEndpoint(), $options);
+		try {
+			$response = $client->get($this->getEndpoint(), $options);
+		} catch (ConnectException $e) {
+			$this->config->setAppValue('settings', 'appstore-fetcher-lastFailure', (string)time());
+			throw $e;
+		}
 
 		$responseJson = [];
 		if ($response->getStatusCode() === Http::STATUS_NOT_MODIFIED) {
@@ -114,6 +122,7 @@ abstract class Fetcher {
 			$responseJson['data'] = json_decode($response->getBody(), true);
 			$ETag = $response->getHeader('ETag');
 		}
+		$this->config->deleteAppValue('settings', 'appstore-fetcher-lastFailure');
 
 		$responseJson['timestamp'] = $this->timeFactory->getTime();
 		$responseJson['ncversion'] = $this->getVersion();
