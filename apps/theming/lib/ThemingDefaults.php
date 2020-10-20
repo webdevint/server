@@ -255,6 +255,10 @@ class ThemingDefaults extends \OC_Defaults {
 		return $this->imageManager->getImageUrl('background');
 	}
 
+	public function getDashboardBackground(): string {
+		return $this->imageManager->getImageUrl('dashboardBackground');
+	}
+
 	/**
 	 * @return string
 	 */
@@ -290,6 +294,7 @@ class ThemingDefaults extends \OC_Defaults {
 			'theming-cachebuster' => "'" . $this->config->getAppValue('theming', 'cachebuster', '0') . "'",
 			'theming-logo-mime' => "'" . $this->config->getAppValue('theming', 'logoMime') . "'",
 			'theming-background-mime' => "'" . $this->config->getAppValue('theming', 'backgroundMime') . "'",
+			'theming-dashboard-background-mime' => "'" . $this->config->getAppValue('theming', 'dashboardBackgroundMime') . "'",
 			'theming-logoheader-mime' => "'" . $this->config->getAppValue('theming', 'logoheaderMime') . "'",
 			'theming-favicon-mime' => "'" . $this->config->getAppValue('theming', 'faviconMime') . "'"
 		];
@@ -298,7 +303,9 @@ class ThemingDefaults extends \OC_Defaults {
 		$variables['image-logoheader'] = "url('".$this->imageManager->getImageUrl('logoheader')."')";
 		$variables['image-favicon'] = "url('".$this->imageManager->getImageUrl('favicon')."')";
 		$variables['image-login-background'] = "url('".$this->imageManager->getImageUrl('background')."')";
+		$variables['image-dashboard-background'] = "url('".$this->imageManager->getImageUrl('dashboardBackground')."')";
 		$variables['image-login-plain'] = 'false';
+		$variables['image-dashboard-plain'] = 'false';
 
 		if ($this->config->getAppValue('theming', 'color', null) !== null) {
 			$variables['color-primary'] = $this->getColorPrimary();
@@ -308,6 +315,10 @@ class ThemingDefaults extends \OC_Defaults {
 
 		if ($this->config->getAppValue('theming', 'backgroundMime', null) === 'backgroundColor') {
 			$variables['image-login-plain'] = 'true';
+		}
+
+		if ($this->config->getAppValue('theming', 'dashboardBackgroundMime', null) === 'backgroundColor') {
+			$variables['image-dashboard-plain'] = 'true';
 		}
 
 		$variables['has-legal-links'] = 'false';

@@ -48,7 +48,7 @@ class ImageManager {
 	/** @var IURLGenerator */
 	private $urlGenerator;
 	/** @var array */
-	private $supportedImageKeys = ['background', 'logo', 'logoheader', 'favicon'];
+	private $supportedImageKeys = ['dashboardBackground', 'background', 'logo', 'logoheader', 'favicon'];
 	/** @var ICacheFactory */
 	private $cacheFactory;
 	/** @var ILogger */
@@ -86,6 +86,8 @@ class ImageManager {
 				return $this->urlGenerator->imagePath('core', 'logo/logo.png') . '?v=' . $cacheBusterCounter;
 			case 'background':
 				return $this->urlGenerator->imagePath('core', 'background.png') . '?v=' . $cacheBusterCounter;
+			case 'dashboardBackground':
+				return $this->urlGenerator->imagePath('dashboard', 'kamil-porembinski-clouds.jpg') . '?v=' . $cacheBusterCounter;
 		}
 	}
 

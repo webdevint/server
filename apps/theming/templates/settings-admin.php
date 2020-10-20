@@ -91,6 +91,20 @@ style('theming', 'settings-admin');
 	<div id="theming-preview">
 		<div id="theming-preview-logo"></div>
 	</div>
+	<div>
+		<form class="uploadButton" method="post" action="<?php p($_['uploadLogoRoute']) ?>" data-image-key="dashboardBackground">
+			<input type="hidden" id="theming-dashboardBackgroundMime" value="<?php p($_['images']['dashboardBackground']['mime']); ?>" />
+			<input type="hidden" name="key" value="dashboardBackground" />
+			<label for="upload-dashboard-background"><span><?php p($l->t('Dashboard default background image')) ?></span></label>
+			<input id="upload-dashboard-background" class="fileupload" name="image" type="file">
+			<label for="upload-dashboard-background" class="button icon-upload svg" id="upload-dashboard-background" title="<?php p($l->t("Upload new dashboard default background")) ?>"></label>
+			<div data-setting="dashboardBackgroundMime" data-toggle="tooltip" data-original-title="<?php p($l->t('Reset to default')); ?>" class="theme-undo icon icon-history"></div>
+			<div class="theme-remove-dashboard-bg icon icon-delete" data-toggle="tooltip" data-original-title="<?php p($l->t('Remove dashboard default background image')); ?>"></div>
+		</form>
+	</div>
+	<div id="theming-preview-dashboard">
+		<div id="theming-preview-logo"></div>
+	</div>
 
 	<h3 class="inlineblock"><?php p($l->t('Advanced options')); ?></h3>
 

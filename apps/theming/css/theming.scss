@@ -33,7 +33,23 @@
 	}
 }
 
+@mixin faded-dashboard-background-image {
+	@include faded-background;
+	background-size: contain;
+	background-image: $image-dashboard-background;
+
+	@if($has-custom-dashboard-background == true) {
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-image: $image-dashboard-background;
+	}
+	@if $image-dashboard-plain == 'true' {
+		background-image: none !important;
+	}
+}
+
 $has-custom-background: variable_exists('theming-background-mime') and $theming-background-mime != '';
+$has-custom-dashboard-background: variable_exists('theming-dashboard-background-mime') and $theming-dashboard-background-mime != '';
 $has-custom-logo: variable_exists('theming-logo-mime') and $theming-logo-mime != '';
 $invert: luma($color-primary) > 0.6;
 
@@ -117,6 +133,10 @@ $invert: luma($color-primary) > 0.6;
 #firstrunwizard .firstrunwizard-header,
 #theming-preview {
 	@include faded-background-image;
+}
+
+#theming-preview-dashboard {
+	@include faded-dashboard-background-image;
 }
 
 /* override styles for login screen in guest.css */
@@ -243,6 +263,12 @@ input.primary,
 			color: $color-primary-text;
 		}
 
+	}
+}
+
+@if $image-dashboard-plain == 'true' {
+	#theming-dashboard-preview {
+		background-image: none !important;
 	}
 }
 

@@ -586,6 +586,15 @@ class ThemingDefaultsTest extends TestCase {
 		$this->assertEquals('custom-background?v=0', $this->template->getBackground());
 	}
 
+	public function testGetDashboardBackground() {
+		$this->imageManager
+			->expects($this->once())
+			->method('getImageUrl')
+			->with('dashboardBackground')
+			->willReturn('custom-dashboard-background?v=0');
+		$this->assertEquals('custom-dashboard-background?v=0', $this->template->getDashboardBackground());
+	}
+
 	private function getLogoHelper($withName, $useSvg) {
 		$this->imageManager->expects($this->any())
 			->method('getImage')
@@ -671,16 +680,20 @@ class ThemingDefaultsTest extends TestCase {
 		$this->imageManager->expects($this->at(1))->method('getImageUrl')->with('logoheader')->willReturn('custom-logoheader?v=0');
 		$this->imageManager->expects($this->at(2))->method('getImageUrl')->with('favicon')->willReturn('custom-favicon?v=0');
 		$this->imageManager->expects($this->at(3))->method('getImageUrl')->with('background')->willReturn('custom-background?v=0');
+		$this->imageManager->expects($this->at(3))->method('getImageUrl')->with('dashboardBackground')->willReturn('custom-dashboard-background?v=0');
 
 		$expected = [
 			'theming-cachebuster' => '\'0\'',
 			'theming-logo-mime' => '\'jpeg\'',
 			'theming-background-mime' => '\'jpeg\'',
+			'theming-dashboard-background-mime' => '\'jpeg\'',
 			'image-logo' => "url('custom-logo?v=0')",
 			'image-login-background' => "url('custom-background?v=0')",
+			'image-dashboard-background' => "url('custom-dashboard-background?v=0')",
 			'color-primary' => $this->defaults->getColorPrimary(),
 			'color-primary-text' => '#ffffff',
 			'image-login-plain' => 'false',
+			'image-dashboard-plain' => 'false',
 			'color-primary-element' => '#aaaaaa',
 			'theming-logoheader-mime' => '\'jpeg\'',
 			'theming-favicon-mime' => '\'jpeg\'',

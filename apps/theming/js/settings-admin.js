@@ -84,6 +84,7 @@ function hideUndoButton(setting, value) {
 		color: '#0082c9',
 		logoMime: '',
 		backgroundMime: '',
+		dashboardBackgroundMime: '',
 		imprintUrl: '',
 		privacyUrl: ''
 	};
@@ -100,6 +101,13 @@ function hideUndoButton(setting, value) {
 	if(setting === 'backgroundMime' && value === 'backgroundColor')  {
 		$('.theme-remove-bg').hide();
 		$('.theme-undo[data-setting=backgroundMime]').show();
+	}
+	if(setting === 'dashboardBackgroundMime' && value !== 'backgroundColor')  {
+		$('.theme-remove-dashboard-bg').show();
+	}
+	if(setting === 'dashboardBackgroundMime' && value === 'backgroundColor')  {
+		$('.theme-remove-dashboard-bg').hide();
+		$('.theme-undo[data-setting=dashboardBackgroundMime]').show();
 	}
 }
 
@@ -150,6 +158,9 @@ window.addEventListener('DOMContentLoaded', function () {
 	});
 	$('#theming-preview').on('click', function() {
 		$('#upload-login-background').click();
+	});
+	$('#theming-preview-dashboard').on('click', function() {
+		$('#upload-dashboard-background').click();
 	});
 
 	function checkName () {
@@ -241,6 +252,18 @@ window.addEventListener('DOMContentLoaded', function () {
 			OC.generateUrl('/apps/theming/ajax/updateStylesheet'), {'setting' : 'backgroundMime', 'value' : 'backgroundColor'}
 		).done(function(response) {
 			preview('backgroundMime', 'backgroundColor', response.data.serverCssUrl);
+		}).fail(function(response) {
+			OC.msg.finishedSaving('#theming_settings_msg', response);
+			$('#theming_settings_loading').hide();
+		});
+	});
+
+	$('.theme-remove-dashboard-bg').click(function() {
+		startLoading();
+		$.post(
+			OC.generateUrl('/apps/theming/ajax/updateStylesheet'), {'setting' : 'dashboardBackgroundMime', 'value' : 'backgroundColor'}
+		).done(function(response) {
+			preview('dashboardBackgroundMime', 'backgroundColor', response.data.serverCssUrl);
 		}).fail(function(response) {
 			OC.msg.finishedSaving('#theming_settings_msg', response);
 			$('#theming_settings_loading').hide();
