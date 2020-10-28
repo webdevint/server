@@ -38,6 +38,7 @@ use OCP\IUserSession;
 use OCP\SystemTag\ISystemTagManager;
 use OCP\WorkflowEngine\ICheck;
 use OCP\WorkflowEngine\IEntity;
+use OCP\WorkflowEngine\IEntityEvent;
 use OCP\WorkflowEngine\IManager;
 use OCP\WorkflowEngine\IOperation;
 use PHPUnit\Framework\MockObject\MockObject;
