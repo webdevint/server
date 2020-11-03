@@ -35,6 +35,7 @@ use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\Settings\ISettings;
+use OCP\App\IAppManager;
 
 class Admin implements ISettings {
 	/** @var IConfig */
@@ -47,17 +48,21 @@ class Admin implements ISettings {
 	private $urlGenerator;
 	/** @var ImageManager */
 	private $imageManager;
+	/** @var IAppManager */
+	private $appManager;
 
 	public function __construct(IConfig $config,
 								IL10N $l,
 								ThemingDefaults $themingDefaults,
 								IURLGenerator $urlGenerator,
-								ImageManager $imageManager) {
+								ImageManager $imageManager,
+								IAppManager $appManager) {
 		$this->config = $config;
 		$this->l = $l;
 		$this->themingDefaults = $themingDefaults;
 		$this->urlGenerator = $urlGenerator;
 		$this->imageManager = $imageManager;
+		$this->appManager = $appManager;
 	}
 
 	/**
@@ -85,6 +90,7 @@ class Admin implements ISettings {
 			'images' => $this->imageManager->getCustomImages(),
 			'imprintUrl' => $this->themingDefaults->getImprintUrl(),
 			'privacyUrl' => $this->themingDefaults->getPrivacyUrl(),
+			'dashboardAppEnabled' => $this->appManager->isEnabledForUser('dashboard'),
 		];
 
 		return new TemplateResponse('theming', 'settings-admin', $parameters, '');

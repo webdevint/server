@@ -91,7 +91,7 @@ style('theming', 'settings-admin');
 	<div id="theming-preview">
 		<div id="theming-preview-logo"></div>
 	</div>
-	<div>
+	<div style="<?php p($_['dashboardAppEnabled'] ? '' : 'display: none;') ?>">
 		<form class="uploadButton" method="post" action="<?php p($_['uploadLogoRoute']) ?>" data-image-key="dashboardBackground">
 			<input type="hidden" id="theming-dashboardBackgroundMime" value="<?php p($_['images']['dashboardBackground']['mime']); ?>" />
 			<input type="hidden" name="key" value="dashboardBackground" />
@@ -102,7 +102,7 @@ style('theming', 'settings-admin');
 			<div class="theme-remove-dashboard-bg icon icon-delete" data-toggle="tooltip" data-original-title="<?php p($l->t('Remove dashboard default background image')); ?>"></div>
 		</form>
 	</div>
-	<div id="theming-preview-dashboard">
+	<div id="theming-preview-dashboard" style="<?php p($_['dashboardAppEnabled'] ? '' : 'display: none;') ?>">
 		<div id="theming-preview-logo"></div>
 	</div>
 
