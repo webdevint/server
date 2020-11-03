@@ -223,7 +223,7 @@ class ThemingDefaults extends \OC_Defaults {
 	 * @return string
 	 */
 	public function getLogo($useSvg = true): string {
-		$logo = $this->config->getAppValue('theming', 'logoMime', false);
+		$logo = $this->config->getAppValue('theming', 'logoMime', '');
 
 		$logoExists = true;
 		try {
@@ -307,17 +307,17 @@ class ThemingDefaults extends \OC_Defaults {
 		$variables['image-login-plain'] = 'false';
 		$variables['image-dashboard-plain'] = 'false';
 
-		if ($this->config->getAppValue('theming', 'color', null) !== null) {
+		if ($this->config->getAppValue('theming', 'color', '') !== '') {
 			$variables['color-primary'] = $this->getColorPrimary();
 			$variables['color-primary-text'] = $this->getTextColorPrimary();
 			$variables['color-primary-element'] = $this->util->elementColor($this->getColorPrimary());
 		}
 
-		if ($this->config->getAppValue('theming', 'backgroundMime', null) === 'backgroundColor') {
+		if ($this->config->getAppValue('theming', 'backgroundMime', '') === 'backgroundColor') {
 			$variables['image-login-plain'] = 'true';
 		}
 
-		if ($this->config->getAppValue('theming', 'dashboardBackgroundMime', null) === 'backgroundColor') {
+		if ($this->config->getAppValue('theming', 'dashboardBackgroundMime', '') === 'backgroundColor') {
 			$variables['image-dashboard-plain'] = 'true';
 		}
 
