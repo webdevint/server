@@ -26,7 +26,7 @@ import prefixWithBaseUrl from './prefixWithBaseUrl'
 export default (background, time = 0, themingDefaultBackground = '') => {
 	if (background === 'default') {
 		if (themingDefaultBackground && themingDefaultBackground !== 'backgroundColor') {
-			return generateUrl('/apps/theming/image/dashboardBackground') + '?v=' + time
+			return generateUrl('/apps/theming/image/dashboardBackground') + '?v=' + window.OCA.Theming.cacheBuster
 		}
 		if (window.OCA.Accessibility.theme === 'dark') {
 			return prefixWithBaseUrl('eduardo-neves-pedra-azul.jpg')
